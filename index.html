@@ -9,6 +9,10 @@
     <style>
       body { font-family: 'Inter', sans-serif; }
     </style>
+    <!-- Polyfill for process to prevent crash on 'process is not defined' -->
+    <script>
+      window.process = window.process || { env: { NODE_ENV: 'production' } };
+    </script>
   <script type="importmap">
 {
   "imports": {

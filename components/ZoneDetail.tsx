@@ -20,14 +20,17 @@ export const ZoneDetail: React.FC<ZoneDetailProps> = ({ zone, onClose }) => {
   }));
 
   const handleAIAnalysis = async () => {
-    if (!process.env.API_KEY) {
-      setAnalysis("API Key not found. Please configure the environment.");
+    // Safer check for environment variable to prevent crashes
+    const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : null;
+
+    if (!apiKey) {
+      setAnalysis("API Key not found. Please configure the API_KEY environment variable.");
       return;
     }
 
     setLoading(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: apiKey });
       const prompt = `
         Act as an expert agronomist. Analyze the following irrigation zone data:
         Zone ID: ${zone.id}
