@@ -1,0 +1,5 @@
+{
+  "name": "WaterSafe Monitor",
+  "description": "A comprehensive agricultural dashboard for monitoring irrigation zones, utilizing Gemini AI for crop health analysis.",
+  "requestFramePermissions": []
+}
