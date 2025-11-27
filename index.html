@@ -9,24 +9,34 @@
     <style>
       body { font-family: 'Inter', sans-serif; }
     </style>
-    <!-- Polyfill for process to prevent crash on 'process is not defined' -->
+    <!-- Robust Polyfill for process to prevent library crashes -->
     <script>
-      window.process = window.process || { env: { NODE_ENV: 'production' } };
+      if (typeof process === "undefined") {
+        window.process = {
+          env: { NODE_ENV: "production" },
+          version: "",
+          versions: {},
+          nextTick: function(cb) { setTimeout(cb, 0); },
+          platform: "browser"
+        };
+      }
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "recharts": "https://aistudiocdn.com/recharts@^3.5.0",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.42.0"
-  }
-}
-</script>
-</head>
+    <script type="importmap">
+    {
+      "imports": {
+        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+        "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
+        "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+        "react/": "https://aistudiocdn.com/react@^19.2.0/",
+        "react": "https://aistudiocdn.com/react@^19.2.0",
+        "recharts": "https://aistudiocdn.com/recharts@^3.5.0",
+        "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.42.0"
+      }
+    }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
   </body>
