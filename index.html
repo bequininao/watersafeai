@@ -9,17 +9,17 @@
     <style>
       body { font-family: 'Inter', sans-serif; }
     </style>
-    <!-- Robust Polyfill for process to prevent library crashes -->
+    <!-- Robust Polyfill for process to prevent library crashes (Supabase/GenAI) -->
     <script>
-      if (typeof process === "undefined") {
-        window.process = {
-          env: { NODE_ENV: "production" },
-          version: "",
-          versions: {},
-          nextTick: function(cb) { setTimeout(cb, 0); },
-          platform: "browser"
-        };
-      }
+      window.process = {
+        env: { NODE_ENV: "production" },
+        version: "v16.0.0",
+        versions: { node: "16.0.0" },
+        nextTick: function(cb) { setTimeout(cb, 0); },
+        platform: "browser",
+        cwd: function() { return '/'; }
+      };
+      window.global = window;
     </script>
     <script type="importmap">
     {
@@ -39,5 +39,7 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Entry point for the application -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
